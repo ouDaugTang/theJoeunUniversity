@@ -1,6 +1,3 @@
-# **프로젝트 : theJoeunUniversity** kiosk
-![images](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/4a739f76-94af-43c0-8948-cc041804c333)
-<br><br>
 ## 태도를 개발자의 가장 중요한 덕목으로 생각하는 개발자 홍준범입니다.
 ## **맡은 역할**
 
@@ -10,6 +7,9 @@
     - **DB 구축**: 효율적인 테이블을 만드려고 노력했습니다.
 
 
+# **프로젝트 : theJoeunUniversity** kiosk
+![images](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/4a739f76-94af-43c0-8948-cc041804c333)
+<br><br>
 
 ## 목차
 - 프로젝트 개요
