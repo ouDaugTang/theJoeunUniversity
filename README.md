@@ -1,6 +1,15 @@
 # **프로젝트 : theJoeunUniversity** kiosk
 ![images](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/4a739f76-94af-43c0-8948-cc041804c333)
 <br><br>
+## 태도를 개발자의 가장 중요한 덕목으로 생각하는 개발자 홍준범입니다.
+## **맡은 역할**
+
+- **핵심 기능**
+    - **로그인 기능**:** 가상키보드 라이브러리를 적용해 터치로 로그인이 가능하게 하였습니다.
+    - **이력서**:** 한글 HTML변환을 이용해 로그인된 사용자의 값을 매핑하였습니다.
+    - **DB 구축**:** 효율적인 테이블을 만드려고 노력했습니다.
+
+
 
 ## 목차
 - 프로젝트 개요
@@ -232,6 +241,44 @@
     		List<Calendar> calendarList = null;
     		if( (year == null || year.equals("")) || (month == null || month.equals("")) ) {
     			calendarList = calendarService.list();
+
+![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
+<br>
+
+### 6-2. 처리 과정
+<details>
+    <summary>캘린더 데이터 JSON 형식으로 반환</summary>
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    		
+    		String year = request.getParameter("year");
+    		String month = request.getParameter("month");
+    		
+    		System.out.println("year : " + year);
+    		System.out.println("month : " + month);
+    		
+    		List<Calendar> calendarList = null;
+    		if( (year == null || year.equals("")) || (month == null || month.equals("")) ) {
+    			calendarList = calendarService.list();
+
+![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
+<br>
+
+### 6-2. 처리 과정
+<details>
+    <summary>캘린더 데이터 JSON 형식으로 반환</summary>
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    		
+    		String year = request.getParameter("year");
+    		String month = request.getParameter("month");
+    		
+    		System.out.println("year : " + year);
+    		System.out.println("month : " + month);
+    		
+    		List<Calendar> calendarList = null;
+    		if( (year == null || year.equals("")) || (month == null || month.equals("")) ) {
+    			calendarList = calendarService.list();
     		}
     		else {
     			calendarList = calendarService.listByYearMonth(year, month);
@@ -239,140 +286,11 @@
     		
     		PrintWriter writer = response.getWriter();
     		if( calendarList == null ) {
-    			writer.print("NO DATA");
-    			return;
-    		}
-    		
-    		List<Map<?,?>> list = new ArrayList<Map<?,?>>();
-    		SimpleDateFormat sdf = new SimpleDateFormat("MM-dd");
-    		for (Calendar cal : calendarList) {
-    			Map<String, String> calMap = new HashMap<String, String>();
-    			calMap.put("no", cal.getNo()+"");
-    			calMap.put("strDate", sdf.format( cal.getStrDate() ));
-    			calMap.put("endDate", sdf.format( cal.getEndDate() ));
-    			calMap.put("content", cal.getContent());
-    			
-    			list.add(calMap);
-    		}
-    		
-    		Map<String, List<?>> map = new HashMap<String, List<?>>();
-    		map.put("dates", list);
-    		
-    		// [Calendar(), Calendar(), Calendar(), ...]
-    		// [{'no':1,'stdDate':0000,'endDate':0000,'content':'설명'},{'no':1,'stdDate':0000,'endDate':0000,'content':'설명'},...]
-    		// java List to JSON List
-    		
-    		JSONObject json = new JSONObject(map);
-    		
-    		response.setContentType("application/json");
-    		writer.print(json);
-    }
-</details>
+
+![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
 <br>
 
-
-<details>
-    <summary>AJAX 데이터 비동기 요청</summary>
-
-    $.ajax({
-    	 type            : 'GET',                // 요청 메소드
-       url             : url,                    // 요청 URL
-       data            : data,                   // 요청 데이터
-       contentType     : 'application/json',     // 요청 데이터 타입
-       dataType        : 'html',                 // 응답 데이터 타입
-       // 요청 성공 
-       success         : function(response, status) {
-       // response : 응답 데이터
-       // status   : 응답 상태
-       console.log(response)
-                        
-       // 문자열 --> JSON
-       let calList = JSON.parse( response ).dates
-                        
-       console.log("달력 데이터 -------------")
-       console.log(calList[0].strDate)
-                        
-       // 달력에 일정 표시
-       paintDates( calList )  
-       },
-       // 에러
-       error           : function(xhr, status) {
-       // xhr      : XMLHttpRequest 객체
-       // status   : 응답 상태
-       alert('에러 발생')
-       }
-    })
-</details>
-<br>
-
-<details>
-    <summary>달력에 일정 표시하기</summary>
-
-    function paintDates( calList ) {
-    			console.log(calList)
-    			
-    			let dateList = new Array()
-    			for (let i = 0; i < calList.length; i++) {
-    				
-    				const strDate = calList[i].strDate
-    				const endDate = calList[i].endDate
-    				
-    				const strDay = parseInt( strDate.split("-")[1] ) 
-    				const endDay = parseInt( endDate.split("-")[1] )
-    				
-    				const content = calList[i].content
-    				
-    				// 끝나는 일정이 다음 달이면, endDay 를 31로 고정
-    				const endMonth = endDate.split("-")[0]
-    				let nextMonth = realMonth + 1
-    				nextMonth = nextMonth < 10 ? "0" + nextMonth : nextMonth
-    				if( endMonth == nextMonth ) {
-    					endDay = 31
-    				}
-    				
-    				// strDay : 1
-    				// endDAy : 5
-    				// j : 1,2,3,4,5
-    				for (let j = strDay; j <= endDay; j++) {
-    					let day = j < 10 ? "0" + j : j
-    					let date = month + "-" + day
-    					let obj = {
-    							'date' 		: date,
-    							'content' 	: content
-    					}
-    					dateList.push(obj)
-    				}
-    			}
-    			
-    			for (var i = 0; i < dateList.length; i++) {
-    				let date = dateList[i].date
-    				let content = dateList[i].content
-    				$("[data=" + date +"]").addClass("date")
-    				
-    				
-    				let count = $("[data=" + date +"] ~ .count").text()
-    				console.log(content)
-    				console.log(count)
-    				
-    				if( count == null || count == '' ) {
-    					count = 0
-    				}
-    				let sumCount = parseInt( count ) + 1
-    				
-    				$("[data=" + date +"] ~ .count").text( sumCount )
-    				
-    				if(count != 1){
-    					let dateli = `<li>${ content }</li>`
-    					$("[data=" + date +"] ~ .date-content").append(dateli)					
-    				}
-    			}
-    }
-</details>
-<br>
-    
-
-### 6-3. 개선할 점
-- 상세 일정을 출력하고 추후 툴팁을 사용해 해당 일정에 대해서 마우스를 클릭하면 툴팁에서 해당 일정이 뜰 수 있도록 하여 실제 대학교에서 사용 가능한 키오스크 시스템 처럼 구현하고자함
+### 6-2. 처리 과정
 
 ## 7. 자체 평가 의견
 ### 7-1. 개별 평가
@@ -385,9 +303,10 @@
     첫 설계를 탄탄히 하는 것이 매우 중요하다는 것을 몸소 알게되었습니다.
     첫 팀 프로젝트인데 화기애애하게 잘 진행되고 달성해서 마무리되어서 기뻤습니다
 - 홍준범
-    - 기능적인 측면은 잘 했다고 생각함 8점
-    기획에서 아쉬운 부분이 있었으나 앞으로 진행 될 프로젝트는 어떻게 수행해야 하는지 알게 됨 기능적인 오류를 빨리 캐치하여 시간 손실을 줄이는게 중요하다고 느낌
-    이번 프로젝트로 mvc 패턴의 전체적인 흐름을 알게되어서 결과적으로 좋은 경험이라고 생각함
+    - 기능적인 측면은 잘 했다고 생각합니다.
+    기획에서 아쉬운 부분이 있었으나 앞으로 진행 될 프로젝트는 어떻게 수행해야 하는지 알게 됐습니다. 
+    기능적인 오류를 빨리 캐치하여 시간 손실을 줄이는게 중요하다고 느꼈습니다.
+    이번 프로젝트로 MVC 패턴의 전체적인 흐름을 알게되어서 결과적으로 좋은 경험이라고 생각합니다.
 - 홍 성
     - 정해진 기한 내에 할 수 있는 것을 최대한 구현했다는 점이 좋았다고 생각되며,
     역시 아쉬운 점은 짧았던 기간이었다고 생각됩니다. 그 시간을 단축 시킬 수 있는것이 실력이라 생각되며 후엔 더욱 발전해 좀더 직관적이고 편리한 기능 수용및 구현 그리고 통일된 디자인까지 이룰 수 있을거라 생각 됩니다. 3조 고생했습니다.
