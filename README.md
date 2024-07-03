@@ -221,76 +221,10 @@
 ## 6. 핵심 기능 코드 리뷰
 
 ### 6-1. 기능 목표
-학사 일정을 비동기 형태로 데이터를 가져와 출력된 해당 월에 대한 달력에 표시를 해서 사용자가 해당 월에 어떤 행사가 있는지 확인할 수 있어야함
 
-![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
-<br>
 
 ### 6-2. 처리 과정
-<details>
-    <summary>캘린더 데이터 JSON 형식으로 반환</summary>
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		
-    		String year = request.getParameter("year");
-    		String month = request.getParameter("month");
-    		
-    		System.out.println("year : " + year);
-    		System.out.println("month : " + month);
-    		
-    		List<Calendar> calendarList = null;
-    		if( (year == null || year.equals("")) || (month == null || month.equals("")) ) {
-    			calendarList = calendarService.list();
-
-![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
-<br>
-
-### 6-2. 처리 과정
-<details>
-    <summary>캘린더 데이터 JSON 형식으로 반환</summary>
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		
-    		String year = request.getParameter("year");
-    		String month = request.getParameter("month");
-    		
-    		System.out.println("year : " + year);
-    		System.out.println("month : " + month);
-    		
-    		List<Calendar> calendarList = null;
-    		if( (year == null || year.equals("")) || (month == null || month.equals("")) ) {
-    			calendarList = calendarService.list();
-
-![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
-<br>
-
-### 6-2. 처리 과정
-<details>
-    <summary>캘린더 데이터 JSON 형식으로 반환</summary>
-
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-    		
-    		String year = request.getParameter("year");
-    		String month = request.getParameter("month");
-    		
-    		System.out.println("year : " + year);
-    		System.out.println("month : " + month);
-    		
-    		List<Calendar> calendarList = null;
-    		if( (year == null || year.equals("")) || (month == null || month.equals("")) ) {
-    			calendarList = calendarService.list();
-    		}
-    		else {
-    			calendarList = calendarService.listByYearMonth(year, month);
-    		}
-    		
-    		PrintWriter writer = response.getWriter();
-    		if( calendarList == null ) {
-
-![구현화면9](https://github.com/JongsikLEE01/theJoeunUniversity/assets/137877490/6a52bb3e-0e2d-4069-92e7-cb07b755706f)
-<br>
-
-### 6-2. 처리 과정
 
 ## 7. 자체 평가 의견
 ### 7-1. 개별 평가
