@@ -1,4 +1,8 @@
 ## 태도를 개발자의 가장 중요한 덕목으로 생각하는 개발자 홍준범입니다.
+
+## **시연 영상**
+[![Video Label](https://img.youtube.com/vi/uljVDL_yx3k/0.jpg)](https://www.youtube.com/watch?v=uljVDL_yx3k)
+
 ## **맡은 역할**
 
 - **핵심 기능**
